@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Florida Travel</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff7f7, #eef8ff);
+            color: #0f172a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            background: rgba(255,255,255,0.85);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* utility menu (matching main page) */
+        .utility-menu {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 999;
+        }
+
+        .utility-btn {
+            background: rgba(255,255,255,0.95);
+            color: #0f172a;
+            border: 1px solid rgba(15, 23, 42, 0.12);
+            padding: 8px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+        }
+
+        .utility-panel {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: linear-gradient(90deg,#ff5b73,#ff8a5b);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            padding: 10px;
+            min-width: 180px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .utility-panel.show { display:flex; }
+
+        .utility-panel select { width:100%; padding:6px 8px; border-radius:6px; border:none; }
+
+        body.dark {
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+
+        body.dark h1,
+        body.dark h2,
+        body.dark h3,
+        body.dark h4,
+        body.dark h5,
+        body.dark h6 {
+            color: #93c5fd;
+        }
+
+        body.dark .container {
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        }
+
+        body.dark button,
+        body.dark .back-link,
+        body.dark .utility-btn {
+            background: linear-gradient(90deg, #2563eb, #0f172a);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        body.dark .page-image,
+        body.dark .image-label {
+            color: #bfdbfe;
+            border-color: #3b82f6;
+        }
+
+        body.dark footer {
+            background: linear-gradient(90deg, #2563eb, #0f172a);
+            color: #e2e8f0;
+        }
+
+        body.dark a {
+            color: #7dd3fc;
+        }
+
+        body.dark .contact-box {
+            background: rgba(15, 23, 42, 0.75);
+            border-left-color: #38bdf8;
+        }
+
+        body.dark input,
+        body.dark textarea,
+        body.dark select {
+            background: rgba(15, 23, 42, 0.85);
+            border-color: #334155;
+            color: #e2e8f0;
+        }
+
+        body.dark .field-label {
+            color: #dbeafe;
+        }
+
+        body.dark .utility-panel {
+            background: linear-gradient(90deg, #7c3aed, #2563eb);
+        }
+
+        body.dark .container::before {
+            background-image: url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80');
+            filter: blur(6px) saturate(0.9) brightness(0.6);
+            opacity: 0.95;
+        }
+
+        body.dark .container::after {
+            background: rgba(2, 6, 23, 0.6);
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80');
+            background-size: cover;
+            background-position: center;
+            filter: blur(6px) saturate(1.05);
+            transform: scale(1.06);
+            z-index: 0;
+            opacity: 0.9;
+        }
+
+        .container::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.4);
+            z-index: 1;
+            border-radius: 16px;
+        }
+
+        .container > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            color: #ff5b73;
+            margin-top: 0;
+        }
+
+        .contact-box {
+            background: #fff4f6;
+            padding: 20px;
+            border-left: 6px solid #ff5b73;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        a {
+            color: #ff5b73;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: linear-gradient(90deg, #ff5b73, #ff8a5b);
+            color: white;
+            border-radius: 999px;
+            text-decoration: none;
+        }
+
+        .page-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+            display: grid;
+            gap: 14px;
+        }
+
+        .field-label {
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: -2px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .phone-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .country-select {
+            flex: 0 0 180px;
+            min-width: 160px;
+        }
+
+        .phone-input {
+            flex: 1 1 220px;
+        }
+
+        button {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #ff5b73, #ff8a5b);
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        button:active,
+        button.pressed {
+            transform: scale(0.97);
+            box-shadow: 0 6px 16px rgba(255, 91, 115, 0.25);
+        }
+
+        @keyframes sendPress {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.96); }
+            100% { transform: scale(1); }
+        }
+
+        button.pressed {
+            animation: sendPress 0.25s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="utility-menu">
+        <button class="utility-btn" id="utilityToggle">⚙️</button>
+        <div class="utility-panel" id="utilityPanel">
+            <label for="langSelect">Language</label>
+            <select id="langSelect">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fil">Filipino</option>
+            </select>
+            <label style="margin-top:6px; display:block; color:#fff; font-size:0.9rem;">Theme</label>
+            <button id="themeToggle" class="utility-btn">Light / Dark</button>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Contact Me</h1>
+        <p>My name is Eljour John F. Sidlacan, and I am passionate about sharing the beauty of Florida with travelers from around the world. If you have any questions, suggestions, or would like to collaborate on travel content, please don't hesitate to reach out. If you would like to plan your Florida adventure or ask about travel ideas, feel free to get in touch.</p>
+
+        <div class="contact-box">
+            <p><strong>Email:</strong> <a id="contactEmail" href="mailto:eljoursidlacan@gmail.com">eljoursidlacan@gmail.com</a></p>
+            <p><strong>Location:</strong> <span id="contactLocation">Florida, USA</span></p>
+        </div>
+
+        <form id="contactForm" action="mailto:eljoursidlacan@gmail.com" method="post" enctype="text/plain">
+            <input id="fldName" type="text" name="name" maxlength="30" placeholder="Your Name" required>
+            <input id="fldEmail" type="email" name="email" placeholder="Your Email" required>
+            <textarea id="fldMessage" name="message" maxlength="300" placeholder="Your Message" required></textarea>
+            <label class="field-label" for="countrySelect">Phone Number</label>
+            <div class="phone-row">
+                <select id="countrySelect" class="country-select" name="country">
+                    <option value="ph">Philippines (+63)</option>
+                    <option value="us">United States (+1)</option>
+                    <option value="uk">United Kingdom (+44)</option>
+                    <option value="au">Australia (+61)</option>
+                </select>
+                <input id="fldPhone" class="phone-input" type="text" name="phone" maxlength="10" inputmode="numeric" pattern="[0-9]*" placeholder="9123456789" title="Enter digits only" required>
+            </div>
+            <button id="sendBtn" type="submit">Send Message</button>
+        </form>
+
+        <a id="backLink" class="back-link" href="TravelWebpage.html">← Back to Home</a>
+    </div>
+
+    <script>
+    (function(){
+        const toggle = document.getElementById('utilityToggle');
+        const panel = document.getElementById('utilityPanel');
+        const langSel = document.getElementById('langSelect');
+        const themeBtn = document.getElementById('themeToggle');
+        const countrySelect = document.getElementById('countrySelect');
+        const phoneInput = document.getElementById('fldPhone');
+        const sendBtn = document.getElementById('sendBtn');
+
+        const phonePatterns = {
+            ph: { placeholder: '9123456789', maxLength: 10 },
+            us: { placeholder: '5551234567', maxLength: 10 },
+            uk: { placeholder: '7123456789', maxLength: 10 },
+            au: { placeholder: '412345678', maxLength: 9 }
+        };
+
+        function sanitizePhone(value){
+            return value.replace(/\D/g, '');
+        }
+
+        function updatePhoneInput(){
+            const config = phonePatterns[countrySelect.value] || phonePatterns.ph;
+            phoneInput.value = sanitizePhone(phoneInput.value);
+            phoneInput.maxLength = config.maxLength;
+            phoneInput.placeholder = config.placeholder;
+            phoneInput.setAttribute('inputmode', 'numeric');
+            phoneInput.setAttribute('pattern', '[0-9]*');
+        }
+
+        function applyTheme(theme){
+            if(theme === 'dark') document.body.classList.add('dark');
+            else document.body.classList.remove('dark');
+        }
+
+        function applyLanguage(lang){
+            const h1 = document.querySelector('h1');
+            const p = document.querySelector('.container > p');
+            const contactEmail = document.getElementById('contactEmail');
+            const contactLocation = document.getElementById('contactLocation');
+            const backLink = document.getElementById('backLink');
+            const sendBtn = document.getElementById('sendBtn');
+            const fldName = document.getElementById('fldName');
+            const fldEmail = document.getElementById('fldEmail');
+            const fldMessage = document.getElementById('fldMessage');
+
+            if(lang === 'es'){
+                h1.innerText = 'Contacta conmigo';
+                if(p) p.innerText = 'Mi nombre es Eljour John F. Sidlacan, y me apasiona compartir la belleza de Florida con viajeros de todo el mundo. Si tienes preguntas o sugerencias, no dudes en contactarme.';
+                if(contactEmail) contactEmail.innerText = 'eljoursidlacan@gmail.com';
+                if(contactLocation) contactLocation.innerText = 'Florida, EE. UU.';
+                if(backLink) backLink.innerText = '← Volver a inicio';
+                if(sendBtn) sendBtn.innerText = 'Enviar mensaje';
+                if(fldName) fldName.placeholder = 'Tu nombre';
+                if(fldEmail) fldEmail.placeholder = 'Tu correo electrónico';
+                if(fldMessage) fldMessage.placeholder = 'Tu mensaje';
+            } else if(lang === 'fil') {
+                h1.innerText = 'Makipag-ugnayan sa Akin';
+                if(p) p.innerText = 'Ang pangalan ko ay Eljour John F. Sidlacan, at nasisiyahan akong ibahagi ang kagandahan ng Florida sa mga manlalakbay mula sa buong mundo. Kung may mga tanong ka, suhestiyon, o nais makipagtulungan sa nilalamang paglalakbay, huwag mag-atubiling makipag-ugnayan.';
+                if(contactEmail) contactEmail.innerText = 'eljoursidlacan@gmail.com';
+                if(contactLocation) contactLocation.innerText = 'Florida, USA';
+                if(backLink) backLink.innerText = '← Bumalik sa Home';
+                if(sendBtn) sendBtn.innerText = 'Ipadala ang Mensahe';
+                if(fldName) fldName.placeholder = 'Pangalan mo';
+                if(fldEmail) fldEmail.placeholder = 'Iyong Email';
+                if(fldMessage) fldMessage.placeholder = 'Ang Iyong Mensahe';
+            } else {
+                h1.innerText = 'Contact Me';
+                if(p) p.innerText = 'My name is Eljour John F. Sidlacan, and I am passionate about sharing the beauty of Florida with travelers from around the world. If you have any questions, suggestions, or would like to collaborate on travel content, please don\'t hesitate to reach out.';
+                if(contactEmail) contactEmail.innerText = 'eljoursidlacan@gmail.com';
+                if(contactLocation) contactLocation.innerText = 'Florida, USA';
+                if(backLink) backLink.innerText = '← Back to Home';
+                if(sendBtn) sendBtn.innerText = 'Send Message';
+                if(fldName) fldName.placeholder = 'Your Name';
+                if(fldEmail) fldEmail.placeholder = 'Your Email';
+                if(fldMessage) fldMessage.placeholder = 'Your Message';
+            }
+        }
+
+        countrySelect.addEventListener('change', updatePhoneInput);
+        phoneInput.addEventListener('input', function(){
+            this.value = sanitizePhone(this.value);
+            const config = phonePatterns[countrySelect.value] || phonePatterns.ph;
+            if(this.value.length > config.maxLength){
+                this.value = this.value.slice(0, config.maxLength);
+            }
+        });
+
+        sendBtn.addEventListener('click', function(){
+            this.classList.remove('pressed');
+            void this.offsetWidth;
+            this.classList.add('pressed');
+            setTimeout(() => this.classList.remove('pressed'), 250);
+        });
+
+        toggle.addEventListener('click', function(e){
+            const open = panel.classList.toggle('show');
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+
+        themeBtn.addEventListener('click', function(){
+            const isDark = document.body.classList.toggle('dark');
+            try{ localStorage.setItem('siteTheme', isDark ? 'dark' : 'light'); }catch(e){}
+        });
+
+        langSel.addEventListener('change', function(){
+            applyLanguage(this.value);
+            try{ localStorage.setItem('siteLang', this.value); }catch(e){}
+        });
+
+        document.addEventListener('DOMContentLoaded', function(){
+            try{
+                const theme = localStorage.getItem('siteTheme') || 'light';
+                applyTheme(theme);
+                const lang = localStorage.getItem('siteLang') || 'en';
+                langSel.value = lang;
+                updatePhoneInput();
+                applyLanguage(lang);
+            }catch(e){}
+        });
+
+        document.addEventListener('click', function(e){
+            if(!panel.contains(e.target) && !toggle.contains(e.target)){
+                panel.classList.remove('show');
+                toggle.setAttribute('aria-expanded','false');
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
