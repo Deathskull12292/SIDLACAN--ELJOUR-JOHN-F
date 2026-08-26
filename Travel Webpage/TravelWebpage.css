@@ -479,12 +479,69 @@
         }
 
         @media (max-width: 800px) {
+            header {
+                padding: 48px 16px 36px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .utility-menu {
+                top: 10px;
+                right: 10px;
+            }
+
+            section {
+                width: calc(100% - 24px);
+                padding: 20px 16px;
+                border-radius: 12px;
+            }
+
             .intro {
                 grid-template-columns: 1fr;
             }
 
+            .media-row {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery img {
+                height: 180px;
+            }
+
+            .terms-actions {
+                flex-wrap: wrap;
+                justify-content: stretch;
+            }
+
+            .terms-checkbox {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
             .gallery {
                 grid-template-columns: 1fr;
+            }
+
+            .gallery img {
+                height: 220px;
+            }
+
+            .terms-actions button {
+                flex: 1 1 120px;
             }
         }
     

@@ -157,12 +157,28 @@
     const agree = document.getElementById('termsAgree');
     const enter = document.getElementById('enterBtn');
     const decline = document.getElementById('declineBtn');
+    const termsKey = 'termsAccepted';
+
+    function hasAcceptedTerms(){
+        if(new URLSearchParams(window.location.search).get(termsKey) === '1') return true;
+        if(window.name.indexOf('floridaTermsAccepted') !== -1) return true;
+        try{
+            if(localStorage.getItem(termsKey) === '1') return true;
+        }catch(e){}
+        return document.cookie.split('; ').some(cookie => cookie === termsKey + '=1');
+    }
+
+    function rememberTermsAcceptance(){
+        window.name = 'floridaTermsAccepted';
+        try{ localStorage.setItem(termsKey, '1'); }catch(e){}
+        document.cookie = termsKey + '=1; max-age=31536000; path=/';
+        document.querySelectorAll('.contact-link').forEach(link => {
+            link.href = 'TravelContact.html?' + termsKey + '=1';
+        });
+    }
 
     function showIfNeeded(){
-        try{
-            const accepted = localStorage.getItem('termsAccepted');
-            if(!accepted){ overlay.style.display = 'flex'; }
-        }catch(e){ overlay.style.display = 'flex'; }
+        overlay.style.display = hasAcceptedTerms() ? 'none' : 'flex';
     }
 
     agree.addEventListener('change', function(){
@@ -175,7 +191,7 @@
 
     enter.addEventListener('click', function(){
         if(!agree.checked) return;
-        try{ localStorage.setItem('termsAccepted','1'); }catch(e){}
+        rememberTermsAcceptance();
         overlay.style.display = 'none';
     });
 

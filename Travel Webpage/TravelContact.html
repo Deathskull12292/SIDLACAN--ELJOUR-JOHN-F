@@ -7,6 +7,11 @@
         <link rel="stylesheet" href="TravelContact.css">
 </head>
 <body>
+    <header>
+        <h1>Contact Me</h1>
+        <p>My name is Eljour John F. Sidlacan, and I am passionate about sharing the beauty of Florida with travelers from around the world. If you have any questions, suggestions, or would like to collaborate on travel content, please don't hesitate to reach out. If you would like to plan your Florida adventure or ask about travel ideas, feel free to get in touch.</p>
+    </header>
+
     <div class="utility-menu">
         <button class="utility-btn" id="utilityToggle">⚙️</button>
         <div class="utility-panel" id="utilityPanel">
@@ -21,16 +26,13 @@
         </div>
     </div>
     <div class="container">
-        <h1>Contact Me</h1>
-        <p>My name is Eljour John F. Sidlacan, and I am passionate about sharing the beauty of Florida with travelers from around the world. If you have any questions, suggestions, or would like to collaborate on travel content, please don't hesitate to reach out. If you would like to plan your Florida adventure or ask about travel ideas, feel free to get in touch.</p>
-
         <div class="contact-box">
             <p><strong>Email:</strong> <a id="contactEmail" href="mailto:eljoursidlacan@gmail.com">eljoursidlacan@gmail.com</a></p>
             <p><strong>Location:</strong> <span id="contactLocation">Florida, USA</span></p>
         </div>
 
         <form id="contactForm" action="mailto:eljoursidlacan@gmail.com" method="post" enctype="text/plain">
-            <input id="fldName" type="text" name="name" maxlength="30" placeholder="Your Name" required>
+            <input id="fldName" type="text" name="name" minlength="5" maxlength="30" placeholder="Your Name" required>
             <input id="fldEmail" type="email" name="email" placeholder="Your Email" required>
             <textarea id="fldMessage" name="message" maxlength="300" placeholder="Your Message" required></textarea>
             <label class="field-label" for="countrySelect">Phone Number</label>
@@ -41,14 +43,18 @@
                     <option value="uk">United Kingdom (+44)</option>
                     <option value="au">Australia (+61)</option>
                 </select>
-                <input id="fldPhone" class="phone-input" type="text" name="phone" maxlength="10" inputmode="numeric" pattern="[0-9]*" placeholder="9123456789" title="Enter digits only" required>
+                <input id="fldPhone" class="phone-input" type="text" name="phone" minlength="10" maxlength="10" inputmode="numeric" pattern="9[0-9]{9}" placeholder="9123456789" title="Enter a 10-digit Philippine mobile number starting with 9" required>
             </div>
             <button id="sendBtn" type="submit">Send Message</button>
             <p id="successMessage" class="success-message" role="status" aria-live="polite">Your message was successfully sent.</p>
         </form>
 
-        <a id="backLink" class="back-link" href="TravelWebpage.html">← Back to Home</a>
     </div>
+
+    <footer>
+        <p>© 2026 Florida Travel Experience</p>
+        <a id="backLink" class="back-link" href="TravelWebpage.html">← Back to Home</a>
+    </footer>
 
     <script>
     (function(){
@@ -61,12 +67,17 @@
         const sendBtn = document.getElementById('sendBtn');
         const contactForm = document.getElementById('contactForm');
         const successMessage = document.getElementById('successMessage');
+        const backLink = document.getElementById('backLink');
+
+        if(new URLSearchParams(window.location.search).get('termsAccepted') === '1'){
+            backLink.href = 'TravelWebpage.html?termsAccepted=1';
+        }
 
         const phonePatterns = {
-            ph: { placeholder: '9123456789', maxLength: 10 },
-            us: { placeholder: '5551234567', maxLength: 10 },
-            uk: { placeholder: '7123456789', maxLength: 10 },
-            au: { placeholder: '412345678', maxLength: 9 }
+            ph: { placeholder: '9123456789', minLength: 10, maxLength: 10, pattern: '9[0-9]{9}' },
+            us: { placeholder: '5551234567', minLength: 10, maxLength: 10, pattern: '[0-9]{10}' },
+            uk: { placeholder: '7123456789', minLength: 10, maxLength: 10, pattern: '[0-9]{10}' },
+            au: { placeholder: '412345678', minLength: 9, maxLength: 9, pattern: '[0-9]{9}' }
         };
 
         function sanitizePhone(value){
@@ -76,10 +87,11 @@
         function updatePhoneInput(){
             const config = phonePatterns[countrySelect.value] || phonePatterns.ph;
             phoneInput.value = sanitizePhone(phoneInput.value);
+            phoneInput.minLength = config.minLength;
             phoneInput.maxLength = config.maxLength;
             phoneInput.placeholder = config.placeholder;
             phoneInput.setAttribute('inputmode', 'numeric');
-            phoneInput.setAttribute('pattern', '[0-9]*');
+            phoneInput.setAttribute('pattern', config.pattern);
         }
 
         function applyTheme(theme){
@@ -88,8 +100,8 @@
         }
 
         function applyLanguage(lang){
-            const h1 = document.querySelector('h1');
-            const p = document.querySelector('.container > p');
+            const h1 = document.querySelector('header h1');
+            const p = document.querySelector('header p');
             const contactEmail = document.getElementById('contactEmail');
             const contactLocation = document.getElementById('contactLocation');
             const backLink = document.getElementById('backLink');
