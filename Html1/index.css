@@ -30,41 +30,50 @@ color: rgb(255, 255, 255);
 }
 
 li {
-color: rgb(255, 255, 255);
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  list-style: none;
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  border-radius: 14px;
+  background-color: rgba(0, 0, 0, 0.38);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
 
+li > h1,
+li > h2,
+li > h3,
+li > h4,
+li > h5,
+li > h6 {
+  margin: 0.75rem 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+li > p {
+  max-width: 850px;
+  margin: 1.5rem auto;
+  line-height: 1.5;
+}
+
+li > .single-image {
+  margin-top: 1.5rem;
 }
 h4 {
 color:  rgb(255, 255, 255);
 
 }
 
-li {
-color:  rgb(255, 255, 255);
-
-}
 h5 {
 color: rgb(255, 255, 255);
 
 }
 
-li {
-color:  rgb(255, 255, 255);
-
-}
 h6 {
 color: rgb(255, 255, 255);
 
 }
 
-li {
-color:  rgb(255, 255, 255);
-
-}
-
-
-
-
-p {
 color:  rgb(255, 255, 255);
 font-size: x-large;
 
@@ -75,13 +84,13 @@ font-size: x-large;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 1.5rem;
+  padding: 1.5rem;
 }
 
 figure {
   margin: 0;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 figcaption {
@@ -110,7 +119,7 @@ figcaption {
   width: 100%;
   height: auto;
   max-width: 100%;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 label {
@@ -119,13 +128,20 @@ color:  rgb(255, 255, 255);;
 }
 
 @media (max-width: 768px) {
+  li {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
   .manwha-covers {
     grid-template-columns: 1fr;
-    padding: 0.5rem;
+    gap: 1rem;
+    padding: 1rem;
   }
 
   .game-images {
-    padding: 0.5rem;
+    gap: 1rem;
+    padding: 1rem;
   }
 
   .manwha-cover {
