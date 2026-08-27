@@ -1,5 +1,9 @@
 body 
-{background-image: url("Grey\ Cubes.jpg");
+{background-image: url("./Grey Cubes.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     text-align: center;
     font-style: oblique;
     color: rgb(255, 255, 255);
@@ -36,6 +40,25 @@ color:  rgb(255, 255, 255);
 p {
 color:  rgb(255, 255, 255);
 font-size:  x-large;
+}
+
+.single-image {
+    margin: 0 auto;
+    padding: 1rem;
+    max-width: 600px;
+}
+
+.single-image img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+figcaption {
+    padding-top: 0.5rem;
+    color: rgb(255, 255, 255);
+    font-size: large;
 }
 
 input {

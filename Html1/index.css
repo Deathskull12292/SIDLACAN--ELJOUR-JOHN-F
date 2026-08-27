@@ -1,5 +1,9 @@
 body {
-  background-image: url("Grey\ Cubes.jpg");
+  background-image: url("./Grey Cubes.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   text-align: center;
 font-style: oblique;
 
@@ -65,9 +69,68 @@ color:  rgb(255, 255, 255);
 font-size: x-large;
 
 }
+
+.image-gallery,
+.manwha-covers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+figure {
+  margin: 0;
+  padding: 0.5rem;
+}
+
+figcaption {
+  padding-top: 0.5rem;
+  color: rgb(255, 255, 255);
+  font-size: large;
+}
+
+.image-gallery img,
+.single-image img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.manwha-covers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.manwha-cover {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  padding: 0.5rem;
+}
+
 label {
 color:  rgb(255, 255, 255);;
 
+}
+
+@media (max-width: 768px) {
+  .manwha-covers {
+    grid-template-columns: 1fr;
+    padding: 0.5rem;
+  }
+
+  .game-images {
+    padding: 0.5rem;
+  }
+
+  .manwha-cover {
+    width: min(100%, 373px);
+  }
 }
 
 
